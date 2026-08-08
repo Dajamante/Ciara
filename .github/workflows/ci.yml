@@ -1,4 +1,4 @@
-name: CI
+name: Ciara — Level Up
 
 on:
   push:
@@ -10,11 +10,13 @@ permissions:
   contents: read
 
 jobs:
-  test:
-    name: Test
+  lvl-up:
+    name: Lvl Up
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - name: Lvl
+        run: echo "Ciara says — level up!"
       - name: Check out repository
         uses: actions/checkout@v6
       - name: Install Rust
