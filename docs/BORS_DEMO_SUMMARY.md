@@ -8,7 +8,7 @@ Ciara demonstrates a self-hosted bors merge queue: test the commit intended for 
 
 ```mermaid
 flowchart LR
-    Dev[Developer] -->|@bors try or @bors r+| PR[GitHub PR]
+    Dev[Developer] -->|"@bors try or @bors r+"| PR[GitHub PR]
     PR -->|webhook /github| Bors[Bors on Render]
     Bors --> Branch[Automation branch]
     Branch --> CI[GitHub Actions: Lvl Up]
