@@ -1,0 +1,8 @@
+[package]
+name = "ciara"
+version = "0.1.0"
+edition = "2024"
+description = "A tiny Rust repository for demonstrating a custom bors workflow"
+license = "MIT"
+
+[dependencies]
