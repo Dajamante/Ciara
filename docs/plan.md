@@ -33,18 +33,18 @@ github.com/Dajamante/Ciara
 ## 5. GitHub App
 - [x] Settings → Developer settings → GitHub Apps → New GitHub App
 - [x] Name it (e.g. `<yourname>-bors`)
-- [x] Webhook URL: `https://bors-airas-lvlup.onrender.com`
+- [x] Webhook URL: `https://bors-airas-lvlup.onrender.com/github`
 - [x] Generate a webhook secret — save it
 ${WEBHOOK_SECRET}
 - [x] Permissions (Read & Write): Actions, Checks, Contents, Issues, Pull requests
-- [x] Subscribe to events: Issue comment, Push, Pull request, Pull request review, Pull request review comment, Workflow run
+- [x] Subscribe to events: Issue comment, Push, Pull request, Pull request review, Pull request review comment, Workflow job, Workflow run
 - [x] Create the app, copy the **App ID**
 App ID: ${APP_ID}
 Client ID: ${GITHUB_CLIENT_ID}
 https://github.com/apps/bors-rs-ciaralvlup
 
 - [x] Generate a **private key** (.pem) — save it
-- [x] Install the app → select only the `bors-demo` test repo
+- [x] Install the app → select the repository or repositories that bors should manage
 - [x] Update Render env vars with real values: `APP_ID`, `PRIVATE_KEY`, `WEBHOOK_SECRET`
 - [x] Trigger a redeploy on Render
 - [x] *(You may already have this done — confirm the app + permissions are correctly pointed at your test repo)*
@@ -94,6 +94,29 @@ GitHub App permissions control what bors can do. These files control who is allo
 - [ ] Copy Client ID + Client Secret → add to Render as `OAUTH_CLIENT_ID` / `OAUTH_CLIENT_SECRET`
 - [ ] Add `WEB_URL` env var = your Render URL, redeploy
 - [ ] Log into `https://your-service-name.onrender.com` via GitHub OAuth, confirm rollup UI loads
+
+## Where is the information?
+- **Webhook deliveries:** GitHub → Settings → Developer settings → GitHub Apps → `bors-RS-CiaraLvlUp` → Advanced → Recent Deliveries
+- **Bors queue:** `https://bors-airas-lvlup.onrender.com/queue/ciara`
+- **CI results:** Ciara repository → Actions → `Ciara — Level Up`
+- **Bors application logs:** Render → `bors-airas-LvlUp` → Logs
+- **Database:** Neon project → Tables, SQL Editor, or Monitoring
+  - You normally do not need to look inside Neon; bors owns its tables
+  - Read-only inspection is useful when diagnosing connections or advisory locks
+  - Do not manually edit or delete bors records unless you understand the database schema
+  - Keep `DATABASE_URL` private
+
+## Where are permissions configured?
+- **GitHub App capabilities:** GitHub → Settings → Developer settings → GitHub Apps → `bors-RS-CiaraLvlUp` → Permissions & events
+  - Repository permissions set to **Read and write**: Actions, Checks, Contents, Issues, Pull requests
+  - Optional: Self-hosted runners, only when bors creates EC2 CI runners
+  - Events: Issue comment, Push, Pull request, Pull request review, Pull request review comment, Workflow job, Workflow run
+  - Save changes and approve the updated permissions on every existing installation
+- **People allowed to command bors:** custom bors fork → `data/team`
+  - `bors.try.json`: users allowed to run `@bors try`
+  - `bors.review.json`: users allowed to run commands such as `@bors r+`
+  - Render uses these files through `PERMISSIONS=data/team`
+  - This local-directory setup currently applies the same user lists to every managed repository
 
 ## If something breaks
 - Render → Events/Logs tab first
