@@ -1,3 +1,4 @@
+trivial 1
 # Ciara
 
 <img src="assets/ciara-white-house-2015.jpg" alt="Ciara and Russell Wilson greeting President Barack Obama and Prime Minister Shinzo Abe at the White House" width="720">
