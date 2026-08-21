@@ -9,6 +9,6 @@ mod tests {
 
     #[test]
     fn levels_up() {
-        assert_eq!(level_up(), "Ciara says: level up!");
+        assert_eq!(level_up(), "Ciara says: level up, level up, levelupleveluplevelup!");
     }
 }
